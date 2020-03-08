@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400&display=swap");
+
+body{
+  font-family: 'Open Sans', sans-serif;
+}
+
+:root {
+  --bar-height: 12px;
+
+  --progress: 20;
+  --progress-percentage: 20%;
+  --clip-progress: calc((141.5% / 100) * var(--progress));
+
+  --border-radius: calc(var(--bar-height)/2);
+
+  --indicator-width: 50px;
+  --indicator-offset: calc(var(--indicator-width)/2);
+  --indicator-left: calc(var(--progress-percentage) - var(--indicator-offset));
+
+  --pointer-width: 16px;
+  --pointer-offset: calc(var(--pointer-width)/2);
+  --pointer-left: calc(var(--progress-percentage) - var(--pointer-offset));
+}
+
+span {
+  font-weight: 400;
+}
+
+.progress-bar {
+  width: 33%;
+  margin: auto;
+  margin-top: 10rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+.legend {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.meter {
+  width: 100%;
+  height: var(--bar-height);
+  background-color: lightgrey;
+  border-radius: var(--border-radius);
+  position: relative;
+}
+
+.bar {
+  background-color: blue;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius);
+  position: absolute;
+  clip-path: circle(var(--clip-progress) at left);
+  animation: fill 2s ease-in-out 0s 1 normal;
+}
+
+.indicator {
+  position: absolute;
+  background-color: blue;
+  border-radius: var(--border-radius);
+  width: var(--indicator-width);
+  bottom: calc(var(--bar-height) + 6px);
+  left: var(--indicator-left);
+  text-align: center;
+  animation: load-indicator 2s ease-in-out 0s 1 normal;
+  color: white;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 5px;
+}
+
+.pointer {
+  background-color: blue;
+  width: var(--pointer-width);
+  height: var(--pointer-width);
+  border-radius: none;
+  transform: rotate(45deg);
+  position: absolute;
+  bottom: calc(var(--bar-height) + 4px);
+  left: var(--pointer-left);
+  animation: load-pointer 2s ease-in-out 0s 1 normal;
+  clip-path: polygon(100% 100%, 0% 100%, 100% 0);
+}
+
+@keyframes load-indicator {
+  from {
+    left: calc(0% - var(--indicator-offset));
+  }
+}
+
+@keyframes load-pointer {
+  from {
+    left: calc(0% - var(--pointer-offset));
+  }
+}
+
+@keyframes fill {
+  from {
+    clip-path: circle(0% at left);
+  }
+}
